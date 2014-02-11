@@ -1,0 +1,20 @@
+<IfModule mod_rewrite.c>
+    Options +FollowSymlinks
+    RewriteEngine On
+
+    # Hotlink-Watermark ------------------------------------------------------------------------------------------------
+
+    # Add any directories you wish to omit from the watermarking process on a new line, as follows:
+    # RewriteCond %{REQUEST_URI} !ignore-this-directory
+    # RewriteCond %{REQUEST_URI} !and-ignore-this-directory-too
+
+    # Don't apply the watermarking behaviour on your domain:
+    RewriteCond %{HTTP_REFERER} !^$
+    RewriteCond %{HTTP_REFERER} !^http://(www\.)?your-domain\.com/  [NC]
+
+    # Send any GIF, JPG, or PNG request that is from a remote domain
+    # to hotlink.php so we can add a watermark in the bottom right corner
+    RewriteRule \.(?:jpe?g|gif|png)$ hotlink.php
+
+    # END Hotlink-Watermark --------------------------------------------------------------------------------------------
+</IfModule>
